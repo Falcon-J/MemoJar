@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
-import { FaHome } from "react-icons/fa"; // Importing Home icon from react-icons
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -25,7 +24,6 @@ const Navbar = () => {
         className="flex items-center cursor-pointer"
         onClick={() => navigate("/dashboard")}
       >
-        <FaHome size={24} className="mr-2" /> {/* Home icon */}
         <span className="font-bold text-lg">Dashboard</span>
       </div>
 
