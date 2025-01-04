@@ -3,34 +3,41 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import CustomModal from "../components/Alerts/CustomModal"; // Import CustomModal component
 
 function AddMemory() {
   const [memory, setMemory] = useState("");
+  const [loading, setLoading] = useState(false); // State for loading indicator
   const navigate = useNavigate();
   const auth = getAuth();
+  const [showModal, setShowModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
 
   const handleAddMemory = async (e) => {
     e.preventDefault();
     const user = auth.currentUser;
 
     if (!user) {
-      alert("You need to be logged in to add a memory!");
+      setErrorModal(true); // Show error modal if not logged in
       return;
     }
+
+    setLoading(true); // Start loading when button is clicked
 
     try {
       // Add memory with userId
       await addDoc(collection(db, "memories"), {
         content: memory,
-        userId: user.uid, // Ensure userId is included
+        userId: user.uid,
         createdAt: new Date(), // Optional: Add a timestamp for sorting
       });
 
-      alert("Memory added!");
+      setShowModal(true); // Show success modal on success
       setMemory("");
-      navigate("/memory-jar"); // Navigate to MemoryJar after adding memory
     } catch (error) {
-      alert("Error: " + error.message);
+      setErrorModal(true); // Show error modal on failure
+    } finally {
+      setLoading(false); // Stop loading after operation finishes
     }
   };
 
@@ -54,7 +61,7 @@ function AddMemory() {
           type="submit"
           className="w-full p-2 bg-purple-500 text-white rounded"
         >
-          Add Memory
+          {loading ? "Adding..." : "Add Memory"} {/* Button Text change */}
         </button>
       </form>
       <a href="/memory-jar" className="hover:no-underline">
@@ -62,6 +69,32 @@ function AddMemory() {
           Go back to Memory Jar
         </button>
       </a>
+
+      {loading && (
+        <CustomModal
+          message="Your memory is being added, please wait..."
+          onClose={() => setLoading(false)} // Close the modal when loading finishes
+          isLoading={true} // Pass isLoading as true for showing loading state
+        />
+      )}
+
+      {showModal && (
+        <CustomModal
+          message="Your memory has been added!"
+          onClose={() => {
+            setShowModal(false);
+            navigate("/add-memory"); // Redirect to add-memory page
+          }}
+        />
+      )}
+
+      {errorModal && (
+        <CustomModal
+          message="Error: You need to be logged in to add a memory!"
+          onClose={() => setErrorModal(false)}
+          isLoading={false}
+        />
+      )}
     </div>
   );
 }
