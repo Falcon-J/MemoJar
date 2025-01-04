@@ -3,15 +3,17 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+// Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyDrGzv6Qh3KziO0uW4z6SirMd7nIAHPZks",
-  authDomain: "memojar-52bba.firebaseapp.com",
-  projectId: "memojar-52bba",
-  storageBucket: "memojar-52bba.firebasestorage.app",
-  messagingSenderId: "334130953858",
-  appId: "1:334130953858:web:4f814f231d7c8e4e913e9b",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 export default app;
