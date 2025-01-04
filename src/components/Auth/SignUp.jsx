@@ -30,16 +30,16 @@ function SignUp() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
       <form
         onSubmit={handleSignUp}
-        className="p-6 bg-gray-800 shadow-md rounded"
+        className="p-6 bg-gray-900 shadow-md rounded"
       >
-        <h2 className="text-2xl font-bold mb-4 text-purple-400">Sign Up</h2>
+        <h2 className="text-3xl font-bold mb-6 text-purple-600">Sign Up</h2>
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-2 mb-4 border border-gray-700 rounded bg-gray-700 text-white"
+          className="w-full p-3 mb-4 border border-gray-700 rounded bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-700"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -47,14 +47,14 @@ function SignUp() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-2 mb-4 border border-gray-700 rounded bg-gray-700 text-white"
+          className="w-full p-3 mb-4 border border-gray-700 rounded bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-700"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <button
           type="submit"
-          className="w-full p-2 bg-purple-500 text-white rounded"
+          className="w-full p-3 bg-purple-600 text-white rounded hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
         >
           Sign Up
         </button>
