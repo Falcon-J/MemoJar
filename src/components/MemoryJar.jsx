@@ -4,6 +4,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/config";
 import CustomModal from "../components/Alerts/CustomModal"; // Import CustomModal
 import Navbar from "../components/Navbar"; // Import the Navbar component
+import { Link } from "react-router-dom";
 
 const MemoryJar = () => {
   const [memories, setMemories] = useState([]);
@@ -63,11 +64,11 @@ const MemoryJar = () => {
         )}
 
         <div className="mt-4">
-          <a href="/add-memory" className="text-purple-500 hover:underline">
+          <Link  to="/add-memory" className="text-purple-500 hover:underline">
             <button className="border-2 border-purple-600 bg-white rounded-lg p-2 hover:bg-purple-500 hover:text-white">
               Add a Memory
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

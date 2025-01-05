@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
 import { db } from "../firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -64,11 +64,11 @@ function AddMemory() {
           {loading ? "Adding..." : "Add Memory"} {/* Button Text change */}
         </button>
       </form>
-      <a href="/memory-jar" className="hover:no-underline">
+      <Link to="/memory-jar" className="hover:no-underline">
         <button className="bg-purple-200 text-black p-2 rounded-lg m-6 hover:bg-purple-700 hover:text-white">
           Go back to Memory Jar
         </button>
-      </a>
+      </Link>
 
       {loading && (
         <CustomModal
