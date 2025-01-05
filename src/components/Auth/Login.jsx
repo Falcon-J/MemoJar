@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import CustomModal from "../Alerts/CustomModal"; // Import CustomModal
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
