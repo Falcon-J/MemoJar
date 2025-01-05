@@ -61,9 +61,9 @@ function SignUp() {
       </form>
       <p className="mt-4 text-gray-300">
         Already have an account?{" "}
-        <a href="/login" className="text-purple-500 hover:underline">
+        <Link to="/login" className="text-purple-500 hover:underline">
           Login
-        </a>
+        </Link>
       </p>
 
       {isLoading && (

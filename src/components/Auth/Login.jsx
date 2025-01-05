@@ -65,12 +65,12 @@ function Login() {
         </form>
         <p className="mt-4 text-gray-300">
           Don't have an account?{" "}
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className="text-purple-500 hover:underline focus:outline-none focus:ring-2 focus:ring-purple-500"
           >
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
 
