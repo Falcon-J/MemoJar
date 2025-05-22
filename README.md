@@ -1,33 +1,43 @@
-# MemoJar
+# 🧠 MemoJar
 
-MemoJar is a minimalist and intuitive note-taking web application. Designed for simplicity, it allows users to jot down and manage short notes easily in a clutter-free interface.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Firebase](https://img.shields.io/badge/Firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38bdf8?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-🔗 **Live Demo**: [https://memo-jar.vercel.app/](https://memo-jar.vercel.app/)  
-📦 **GitHub Repo**: [https://github.com/Falcon-J/MemoJar](https://github.com/Falcon-J/MemoJar)
+MemoJar is a personal memory-saving web app built with **React**, **Firebase**, and **Tailwind CSS**. Users can sign up, log in, and save memories to revisit later.
 
 ---
 
 ## ✨ Features
 
-- 📝 Create and manage memos easily
-- 💾 Notes persist on page reload (stored in local storage)
-- 💡 Minimal and distraction-free UI
-- 📱 Fully responsive for mobile and desktop
+- 🔐 Firebase Authentication (Login/Sign Up)
+- 🧠 Add and view personal memories
+- ☁️ Real-time database with Firebase
+- 🎨 Clean UI with Tailwind CSS
+- 📱 Responsive and mobile-friendly
 
 ---
 
-## 🛠️ Tech Stack
+## 🧰 Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Styling:** Tailwind CSS
-- **Deployment:** Vercel
+- React
+- Firebase (Auth + Firestore/Realtime DB)
+- Tailwind CSS
+- Vite
 
 ---
 
-## 🚀 Getting Started
+## 📦 Installation
 
-To run the project locally:
+### Prerequisites
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Falcon-J/MemoJar.git
+Make sure the following are installed on your system:
+
+- [Node.js & npm](https://nodejs.org/)
+- Firebase (installed via npm)
+
+To check if they're already installed:
+
+```bash
+node -v
+npm -v
