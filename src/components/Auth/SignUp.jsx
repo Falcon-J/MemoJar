@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { useNavigate } from "react-router-dom";
-import CustomModal from "../Alerts/CustomModal"; // Import CustomModal component
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -14,24 +13,35 @@ function SignUp() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading
-    setModalMessage("Creating your account..."); // Set loading message
+    setIsLoading(true);
+    setModalMessage("Creating your account...");
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       setModalMessage("Sign up successful!");
+      toast.success("Account created successfully!");
       setTimeout(() => {
-        setIsLoading(false); // Stop loading
-        navigate("/login"); // Navigate to login page after success
-      }, 1000); // Delay for the user to see the success message
+        setIsLoading(false);
+        navigate("/login");
+      }, 1000);
     } catch (error) {
-      setModalMessage("Error: " + error.message);
-      setIsLoading(false); // Stop loading
+      setIsLoading(false);
+      if (error.code === 'auth/email-already-in-use') {
+        toast.error('Account already exists. Please login instead.', {
+          duration: 3000,
+          icon: '⚠️',
+        });
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      } else {
+        toast.error(`Error: ${error.message}`);
+      }
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black">
       <form
         onSubmit={handleSignUp}
         className="p-6 bg-gray-900 shadow-md rounded"
@@ -62,18 +72,10 @@ function SignUp() {
       </form>
       <p className="mt-4 text-gray-300">
         Already have an account?{" "}
-        <Link to="/login" className="text-purple-500 hover:underline">
-          Login
+        <Link to="/login" className="text-purple-500 hover:text-purple-400">
+          Login here
         </Link>
       </p>
-
-      {isLoading && (
-        <CustomModal
-          message={modalMessage} // Display loading or success/error message
-          isLoading={isLoading} // Manage the loading spinner
-          onClose={() => setIsLoading(false)} // Close the modal after success
-        />
-      )}
     </div>
   );
 }

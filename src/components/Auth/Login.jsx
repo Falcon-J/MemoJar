@@ -1,35 +1,86 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { useNavigate } from "react-router-dom";
-import CustomModal from "../Alerts/CustomModal"; // Import CustomModal
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // State to manage loading
-  const [modalMessage, setModalMessage] = useState(""); // State to manage modal message
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
-    setShowModal(true); // Show modal during login
-    setModalMessage("Logging in..."); // Show loading message
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setModalMessage("Login successful!"); // Success message
-      setTimeout(() => {
-        navigate("/dashboard");
-        setShowModal(false); // Close modal after navigation
-      }, 1500); // Wait for modal to show before navigating
+      toast.success("Login successful! 🎉", {
+        duration: 3000,
+        style: {
+          background: "#1F2937",
+          color: "#fff",
+          border: "1px solid #374151",
+        },
+      });
+      navigate("/dashboard");
     } catch (error) {
-      setModalMessage("Error: " + error.message); // Show error message
-      setLoading(false); // Stop loading
-      setTimeout(() => setShowModal(false), 2000); // Close modal after error
+      // Handle specific authentication errors
+      switch (error.code) {
+        case "auth/invalid-email":
+          toast.error("Invalid email format", {
+            icon: "❌",
+            duration: 3000,
+            style: {
+              background: "#1F2937",
+              color: "#fff",
+              border: "1px solid #374151",
+            },
+          });
+          break;
+        case "auth/user-not-found":
+          toast.error("No account found with this email", {
+            icon: "🔍",
+            duration: 3000,
+            style: {
+              background: "#1F2937",
+              color: "#fff",
+              border: "1px solid #374151",
+            },
+          });
+          break;
+        case "auth/wrong-password":
+          toast.error("Incorrect password", {
+            icon: "🔐",
+            duration: 3000,
+            style: {
+              background: "#1F2937",
+              color: "#fff",
+              border: "1px solid #374151",
+            },
+          });
+          break;
+        case "auth/too-many-requests":
+          toast.error("Too many attempts. Please try again later", {
+            icon: "⚠️",
+            duration: 4000,
+            style: {
+              background: "#1F2937",
+              color: "#fff",
+              border: "1px solid #374151",
+            },
+          });
+          break;
+        default:
+          toast.error("Login failed. Please try again", {
+            icon: "❌",
+            duration: 3000,
+            style: {
+              background: "#1F2937",
+              color: "#fff",
+              border: "1px solid #374151",
+            },
+          });
+      }
     }
   };
 
@@ -74,15 +125,6 @@ function Login() {
           </Link>
         </p>
       </div>
-
-      {/* CustomModal for showing messages */}
-      {showModal && (
-        <CustomModal
-          message={modalMessage}
-          onClose={() => setShowModal(false)} // Close the modal when clicked
-          isLoading={loading} // Pass loading state to show spinner
-        />
-      )}
     </>
   );
 }

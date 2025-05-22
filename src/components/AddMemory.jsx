@@ -7,6 +7,7 @@ import CustomModal from "../components/Alerts/CustomModal";
 
 function AddMemory() {
   const [memory, setMemory] = useState("");
+  const [tags, setTags] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const auth = getAuth();
@@ -27,16 +28,27 @@ function AddMemory() {
     setLoading(true);
 
     try {
+      // Convert tags string to array and clean up
+      const tagArray = tags
+        .split(",")
+        .map((tag) => tag.trim().toLowerCase())
+        .filter((tag) => tag !== "");
+
       await addDoc(collection(db, "memories"), {
         content: memory,
         userId: user.uid,
         createdAt: new Date(),
+        tags: tagArray,
+        lastModified: new Date(),
       });
 
       setShowModal(true);
       setMemory("");
+      setTags("");
     } catch (error) {
-      setErrorMessage(error.message || "An error occurred while adding the memory.");
+      setErrorMessage(
+        error.message || "An error occurred while adding the memory."
+      );
       setErrorModal(true);
     } finally {
       setLoading(false);
@@ -47,19 +59,29 @@ function AddMemory() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
       <form
         onSubmit={handleAddMemory}
-        className="p-6 bg-black shadow-md rounded border-2 border-purple-500"
+        className="p-6 bg-black shadow-md rounded border-2 border-purple-500 w-full max-w-2xl"
       >
-        <h2 className="text-2xl font-bold mb-4 text-purple-400">Add a Memory</h2>
+        <h2 className="text-2xl font-bold mb-4 text-purple-400">
+          Add a Memory
+        </h2>
         <textarea
           placeholder="Write your memory..."
           className="w-full p-2 mb-4 border rounded bg-slate-700 text-white border-gray-600"
           value={memory}
           onChange={(e) => setMemory(e.target.value)}
           required
+          rows={4}
+        />
+        <input
+          type="text"
+          placeholder="Add tags (comma-separated: travel, family, goals)"
+          className="w-full p-2 mb-4 border rounded bg-slate-700 text-white border-gray-600"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
         />
         <button
           type="submit"
-          className="w-full p-2 bg-purple-500 text-white rounded"
+          className="w-full p-2 bg-purple-500 text-white rounded hover:bg-purple-600"
           disabled={!memory.trim()} // Disable if memory is empty
         >
           {loading ? "Adding..." : "Add Memory"}

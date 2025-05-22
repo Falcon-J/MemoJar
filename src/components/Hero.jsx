@@ -24,9 +24,10 @@ const Hero = () => {
     <div className="bg-black text-white min-h-screen flex items-center justify-center relative overflow-hidden cursor-none">
       {/* Mouse-following shadow */}
       <motion.div
-        className="absolute inset-1 pointer-events-none "
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, rgba(147, 51, 235, 0.3) 0%, rgba(0,0,0,0) 80%)`,
+          background: `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, rgba(147, 51, 235, 0.4) 0%, rgba(0,0,0,0) 70%)`,
+          zIndex: 50,
         }}
       />
 
