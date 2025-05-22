@@ -27,7 +27,7 @@ const NotFound = () => {
       <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen text-white">
         <h1 className="text-9xl font-bold text-purple-500 mb-4">Error 404</h1>
-            <p className="text-2xl mb-8">Oops! Page not found</p>
+            <p className="text-2xl mb-8">Oops! Page not found.</p>
         <Link
           to="/"
           className="px-6 py-3 bg-purple-600 rounded-full hover:bg-purple-700 transition-colors duration-300"
