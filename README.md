@@ -64,7 +64,8 @@ npm start
 
 ## Screenshots 📸
 
-[Add screenshots of your application here]
+![image](https://github.com/user-attachments/assets/8e08f7db-8ea7-4253-8528-e0a9255336e8)
+
 
 ## Features in Detail 📖
 
